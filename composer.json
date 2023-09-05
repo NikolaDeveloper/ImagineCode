@@ -1,0 +1,17 @@
+{
+    "name": "nikoladev/imaginecode",
+    "description": "Lightweight php framework used in my personal projects.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "NikolaDev\\ImagineCode\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nikola",
+            "email": "nikola.webdeveloper@gmail.com"
+        }
+    ],
+    "require": {}
+}
