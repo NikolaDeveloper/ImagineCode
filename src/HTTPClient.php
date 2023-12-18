@@ -30,14 +30,14 @@ class HTTPClient {
     function download($url, $dest_path, $headers = null, $timeout = 60) {
         $error = new Error();
         set_time_limit(0);
-        $filename = basename($path);
-        if(!file_exists(dirname($path)))
-            mkdir(dirname($path), 0755, true);
+        $filename = basename($dest_path);
+        if(!file_exists(dirname($dest_path)))
+            mkdir(dirname($dest_path), 0755, true);
 
-        if(!file_exists(dirname($path)))
-            return $error->addData($path)->add('path', 'Directory cannot be created.');
+        if(!file_exists(dirname($dest_path)))
+            return $error->addData($dest_path)->add('path', 'Directory cannot be created.');
 
-        $temp = dirname($path) . '/' . $filename . '.tmp';
+        $temp = dirname($dest_path) . '/' . $filename . '.tmp';
         $fp = fopen ($temp, 'w+');
         if(!$fp)
             return $error->addData($path)->add('path', 'Temporary file cannot be created.');
