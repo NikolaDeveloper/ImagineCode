@@ -27,7 +27,7 @@ class HTTPClient {
     function post($url, $body = null, $header = null) {
         return $this->makeRequest('POST', $url, $body, $header);
     }
-    function download($url, $path, $headers = null, $timeout = 60) {
+    function download($url, $dest_path, $headers = null, $timeout = 60) {
         $error = new Error();
         set_time_limit(0);
         $filename = basename($path);
@@ -61,18 +61,18 @@ class HTTPClient {
         }
         fclose($fp);
         if(filesize($temp) > 0) {
-            if(file_exists($path)) {
-                if(!unlink($path)) {
+            if(file_exists($dest_path)) {
+                if(!unlink($dest_path)) {
                     unlink($temp);
-                    return $error->addData($path)->add('path', 'Old file cannot be overwritten.');
+                    return $error->addData($dest_path)->add('path', 'Old file cannot be overwritten.');
                 }
             }
 
-            rename($temp, $path);
+            rename($temp, $dest_path);
             return true;
         }
         unlink($temp);
-        return $error->addData($path)->add('path', 'File size is zero.');
+        return $error->addData($dest_path)->add('path', 'File size is zero.');
     }
     /**
      * Make an HTTP request.  Defaults to a simple GET request if only
