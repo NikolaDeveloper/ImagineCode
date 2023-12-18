@@ -40,7 +40,7 @@ class HTTPClient {
         $temp = dirname($dest_path) . '/' . $filename . '.tmp';
         $fp = fopen ($temp, 'w+');
         if(!$fp)
-            return $error->addData($path)->add('path', 'Temporary file cannot be created.');
+            return $error->addData($dest_path)->add('path', 'Temporary file cannot be created.');
 
         try {
             $ch = curl_init();
@@ -57,7 +57,7 @@ class HTTPClient {
         catch(\Exception $ex) {
             fclose($fp);
             @unlink($temp);
-            return $error->addData($path)->add('curl', $ex->getMessage());
+            return $error->addData($dest_path)->add('curl', $ex->getMessage());
         }
         fclose($fp);
         if(filesize($temp) > 0) {
